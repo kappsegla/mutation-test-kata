@@ -1,24 +1,28 @@
-package mtk.domain;
+package mtk;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import mtk.domain.Company;
+import mtk.domain.Employee;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class CompanyTest
 {
     private Company company;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         this.company = new Company("Megadyne, Inc.");
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         this.company = null;
@@ -42,19 +46,19 @@ public class CompanyTest
     public void leadingTrailingSpacesRemovedFromEmployeeName()
     {
         Employee employee1 = new Employee("001",    " Bob", 100_000.00);
-        Assert.assertEquals("Bob", employee1.getName());
+        assertEquals("Bob", employee1.getName());
         Employee employee2 = new Employee("002", "Alice  ", 100_000.00);
-        Assert.assertEquals("Alice", employee2.getName());
+        assertEquals("Alice", employee2.getName());
     }
 
     @Test
     public void employeeAdded()
     {
         this.company.addEmployee(new Employee("123", "Dave", 100_000.00));
-        Assert.assertTrue(this.company.numberOfEmployees() > 0);
+        assertTrue(this.company.numberOfEmployees() > 0);
 
         this.company.addEmployee(new Employee("456", "Bob", 50_000.00));
-        Assert.assertTrue(this.company.numberOfEmployees() > 0);
+        assertTrue(this.company.numberOfEmployees() > 0);
     }
 
     @Test
@@ -72,7 +76,7 @@ public class CompanyTest
 
         Employee dave = this.company.findEmployeeById("123");
 
-        Assert.assertEquals(davesOriginalSalary * increaseBy, dave.getSalary(), 0.0001);
+        assertEquals(davesOriginalSalary * increaseBy, dave.getSalary(), 0.0001);
     }
 
     @Test

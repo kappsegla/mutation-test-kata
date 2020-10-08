@@ -26,7 +26,7 @@ The domain for the kata is made up of two classes: Company and Employee:
 
 ![Domain Model](Company_Domain.png)
 
-1.  **Run all the unit tests in the `mtk.domain.CompanyTest` class.** They should all pass. Check the test coverage metrics using either maven output or a coverage reporting function in your IDE test runner. The coverage should be close to 100%. Good news: there are tests, they all pass, and they cover all of our business logic. Looks like the software is ready to ship!
+1.  **Run all the unit tests in the `CompanyTest` class.** They should all pass. Check the test coverage metrics using either maven output or a coverage reporting function in your IDE test runner. The coverage should be close to 100%. Good news: there are tests, they all pass, and they cover all of our business logic. Looks like the software is ready to ship!
 
     Unfortunately that would be a terrible idea as the code is full of bugs. To prove it, just take a look at the `mtk.CompanyRunner` class, which contains some simple business logic in its `main()` method. Run `mtk.CompanyRunner.main()` and looks at the console output. Does it look right? How can we have all these bugs despite having all these test?
 

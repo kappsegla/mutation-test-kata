@@ -1,21 +1,25 @@
-package mtk.domain;
+package mtk;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import mtk.domain.CompanyFixed;
+import mtk.domain.EmployeeFixed;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CompanyTestFixed
 {
     private CompanyFixed company;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         this.company = new CompanyFixed("Megadyne, Inc.");
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         this.company = null;
@@ -30,12 +34,12 @@ public class CompanyTestFixed
          * Added assertion of the initial state - it is set outside of the test method and we want to confirm that our
          * assumption about the initial state is correct
          */
-        Assert.assertEquals("Megadyne, Inc.", this.company.getName());
+        assertEquals("Megadyne, Inc.", this.company.getName());
 
         String proposedName = "Cybertron Unlimited, Ltd.";
         this.company.setName(proposedName);
 
-        Assert.assertEquals(proposedName, this.company.getName());
+        assertEquals(proposedName, this.company.getName());
     }
 
     @Test
@@ -45,13 +49,13 @@ public class CompanyTestFixed
          * TEST SMELL: Not testing all distinct scenarios (e.g., no spaces, spaces in the middle)
          */
         EmployeeFixed employee1 = new EmployeeFixed("001",    " Bob", 100_000.00);
-        Assert.assertEquals("Bob", employee1.getName());
+        assertEquals("Bob", employee1.getName());
 
         EmployeeFixed employee2 = new EmployeeFixed("002", "Alice  ", 100_000.00);
-        Assert.assertEquals("Alice", employee2.getName());
+        assertEquals("Alice", employee2.getName());
 
         EmployeeFixed employee3 = new EmployeeFixed("003", "Jimmy Don", 100_000.00);
-        Assert.assertEquals("Jimmy Don", employee3.getName());
+        assertEquals("Jimmy Don", employee3.getName());
     }
 
     @Test
@@ -61,13 +65,13 @@ public class CompanyTestFixed
          * TEST SMELL: Irrelevant assertions
          */
         this.company.addEmployee(new EmployeeFixed("123", "Dave", 100_000.00));
-        Assert.assertEquals(1, this.company.numberOfEmployees());
+        assertEquals(1, this.company.numberOfEmployees());
 
         this.company.addEmployee(new EmployeeFixed("456", "Bob", 50_000.00));
-        Assert.assertEquals(2, this.company.numberOfEmployees());
+        assertEquals(2, this.company.numberOfEmployees());
 
-        Assert.assertEquals("Dave", this.company.findEmployeeById("123").getName());
-        Assert.assertEquals("Bob", this.company.findEmployeeById("456").getName());
+        assertEquals("Dave", this.company.findEmployeeById("123").getName());
+        assertEquals("Bob", this.company.findEmployeeById("456").getName());
     }
 
     @Test
@@ -86,7 +90,7 @@ public class CompanyTestFixed
 
         EmployeeFixed dave = this.company.findEmployeeById("123");
 
-        Assert.assertEquals(110_000.00, dave.getSalary(), 0.0001);
+        assertEquals(110_000.00, dave.getSalary(), 0.0001);
     }
 
     @Test
@@ -100,12 +104,12 @@ public class CompanyTestFixed
         this.company.addEmployee(new EmployeeFixed("789", "Bob",   100_000.00));
 
         EmployeeFixed hopefullyDave = this.company.findEmployeeById("123");
-        Assert.assertEquals("123", hopefullyDave.getId());
-        Assert.assertEquals("Dave", hopefullyDave.getName());
-        Assert.assertEquals(100_000.00, hopefullyDave.getSalary(), 0.00001);
+        assertEquals("123", hopefullyDave.getId());
+        assertEquals("Dave", hopefullyDave.getName());
+        assertEquals(100_000.00, hopefullyDave.getSalary(), 0.00001);
 
         EmployeeFixed hopefullyNoOne = this.company.findEmployeeById("999");
-        Assert.assertNull(hopefullyNoOne);
+        assertNull(hopefullyNoOne);
     }
 
     @Test
@@ -120,6 +124,6 @@ public class CompanyTestFixed
 
         EmployeeFixed employee = this.company.findEmployeeById("123");
         employee.setName("Tommy Lee");
-        Assert.assertEquals("Tommy Lee", this.company.findEmployeeById("123").getName());
+        assertEquals("Tommy Lee", this.company.findEmployeeById("123").getName());
     }
 }
